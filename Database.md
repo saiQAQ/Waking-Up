@@ -92,8 +92,8 @@ MySQL 中提供了两种封锁粒度：**行级锁**以及**表级锁**。
 <summary>MySQL加锁</summary>
 
 ```
-SELECT ... LOCK In SHARE MODE;
-SELECT ... FOR UPDATE;
+**共享锁** SELECT ... LOCK In SHARE MODE;
+**排它锁** SELECT ... FOR UPDATE;
 ```
 </details>
 
