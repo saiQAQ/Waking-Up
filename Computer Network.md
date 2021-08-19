@@ -322,9 +322,12 @@ https://zh.wikipedia.org/wiki/HTTP/3
 
 ### Session与Cookie的区别？
 
-Session是服务器端保持状态的方案，Cookie是客户端保持状态的方案
+Cookie是在客户端保持用户状态的方案，相当于一张通行证。 Session是在服务器端保持用户状态的方案，相当于一个用户档案表。
 
-Cookie保存在客户端本地，客户端请求服务器时会将Cookie一起提交；Session保存在服务端，通过检索Sessionid查看状态。保存Sessionid的方式可以采用Cookie，如果禁用了Cookie，可以使用URL重写机制（把会话ID保存在URL中）。
+Cookie保存在客户端本地，客户端请求服务器时会将Cookie一起提交；
+Session保存在服务端，客户端浏览器再次访问的时候通过检索Session id来查看该客户的状态。保存Session id的方式可以采用Cookie，如果禁用了Cookie，可以使用URL重写机制（把会话Sessionid保存在URL中，服务器能够解析重写后的URL获取Session的id）。
+
+附录：https://www.cnblogs.com/l199616j/p/11195667.html 写的很好，很容易理解
 
 ### 从输入网址到获得页面的过程 (越详细越好)？
 
