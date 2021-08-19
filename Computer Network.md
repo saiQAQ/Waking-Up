@@ -309,6 +309,9 @@ https://zh.wikipedia.org/wiki/HTTP/3
 
 - 发送者A用私钥进行签名，接收者B用公钥验证签名。因为除A外没有人有私钥，所以B相信签名是来自A。A不可抵赖，B也不能伪造报文。
 - 摘要算法:MD5、SHA
+  
+附录帮助理解：https://blog.csdn.net/jlin991/article/details/59110060
+   
 </details>
 
 ### GET与POST的区别？
