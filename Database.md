@@ -285,12 +285,18 @@ https://blog.csdn.net/weixin_39628380/article/details/113385500  附录帮助理
 ### 索引的分类？
 - 普通索引
 - 唯一索引 UNIQUE：索引列的值必须唯一，但允许有空值；
-- 主键索引 PRIMARY KEY：必须唯一，不允许空值（是一种特殊的唯一索引；MySQL创建主键时默认为聚集索引，但主键也可以是非聚集索引）；
+- 主键索引 PRIMARY KEY：必须唯一，不允许空值（是一种特殊的唯一索引；innoDB的主键索引就是聚集索引，但MyISM的主键索引是非聚簇索引）；
 - 单列索引和多列索引/复合索引（Composite）：索引的列数；
 - 覆盖（Covering）索引：索引包含了所有满足查询所需要的数据，查询的时候只需要读取索引而不需要回表读取数据；
 - 聚集（Clustered）索引/非聚集索引：对磁盘上存放数据的物理地址重新组织以使这些数据按照指定规则排序的一种索引（数据的物理排列顺序和索引排列顺序一致）。因此每张表只能创建一个聚集索引（因为要改变物理存储顺序）。优点是查询速度快，因为可以直接按照顺序得到需要数据的物理地址。缺点是进行修改的速度较慢。对于需要经常搜索范围的值很有效。非聚集索引只记录逻辑顺序，并不改变物理顺序；
 - 分区索引（？）
 - 虚拟索引（Virtual）：模拟索引的存在而不用真正创建一个索引，用于快速测试创建索引对执行计划的影响。没有相关的索引段，不增加存储空间的使用
+
+关于聚集索引：
+https://blog.csdn.net/olizxq/article/details/82291675?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control   附录理解
+https://blog.csdn.net/qq_28584889/article/details/88778741  附录理解
+InnoDB使用的是聚簇索引，将主键组织到一棵B+树中，而行数据就储存在叶子节点上，若使用"where id = 14"这样的条件查找主键，则按照B+树的检索算法即可查找到对应的叶节点，之后获得行数据。若对Name列进行条件搜索，则需要两个步骤：第一步在辅助索引B+树中检索Name，到达其叶子节点获取对应的主键。第二步使用主键在主索引B+树种再执行一次B+树检索操作，最终到达叶子节点即可获取整行数据。
+
 
 ### MySQL的两种存储引擎 InnoDB 和 MyISAM 的区别？
 - InnoDB**支持事务**，可以进行Commit和Rollback；
