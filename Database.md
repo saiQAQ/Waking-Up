@@ -115,7 +115,7 @@ MySQL 中提供了两种封锁粒度：**行级锁**以及**表级锁**。
 
 ### 什么是 MVCC？
 多版本并发控制（Multi-Version Concurrency Control, MVCC），MVCC在每行记录后面都保存有两个隐藏的列，用来存储**创建版本号**和**删除版本号**。多版本并发控制更受欢迎.  
-https://draveness.me/database-concurrency-control/  附录帮助理解
+https://draveness.me/database-concurrency-control/  附录帮助理解  
 MVCC：每一个写操作都会创建一个新版本的数据，读操作会从有限多个版本的数据中挑选一个最合适的结果直接返回；
 
 - 创建版本号：创建一个数据行时的事务版本号（**事务版本号**：事务开始时的系统版本号；系统版本号：每开始一个新的事务，系统版本号就会自动递增）；
@@ -128,26 +128,6 @@ MVCC：每一个写操作都会创建一个新版本的数据，读操作会从�
 
 通过版本号减少了锁的争用，**提高了系统性能**；可以实现**提交读**和**可重复读**两种隔离级别，未提交读无需使用MVCC
 
-<details>
-<summary>快照读与当前读</summary>
-
-使用 MVCC 读取的是快照中的数据，这样可以减少加锁所带来的开销：
-
-```
-select * from table ...;
-```
-
-当前读读取的是最新的数据，需要加锁。以下第一个语句需要加 S 锁，其它都需要加 X 锁：
-
-```
-select * from table where ? lock in share mode;
-select * from table where ? for update;
-insert;
-update;
-delete;
-```
-
-</details>
 
 ### 数据库的范式？
 
